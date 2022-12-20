@@ -1,6 +1,7 @@
 <template>
   <BookList v-bind:title="title" v-bind:url="ImageUrl" />
   <BookCard v-bind:bookData = "bookData" />
+  <BookCard v-for="book in books" v-bind:bookData = "book.Item" v-bind:key="book.Item.isbn"/>
 </template>
 
 <script>
@@ -20,7 +21,8 @@ export default {
     // 初回ロード時に渡すダミーデータ
      title:'あああ',
      ImageUrl:'',
-     bookData : {} //空のオブジェクト
+     bookData : {}, //空のオブジェクト
+     books : [], // 空の配列
     }
   },
   // ライフサイクルフック（実行タイミングの指定）
@@ -30,6 +32,10 @@ export default {
     fetch(RAKUTEN_API)
       .then(response => response.json())
       .then(data => {
+        // 複数の本のデータが入った配列
+        const books = data.Items
+        this.books = books
+
         // bookオブジェクトに指定した本の全データが入ってる
         const book = data.Items[1].Item
         // 非同期処理で取得したデータは、そのまま他のコンポーネントに渡せない
