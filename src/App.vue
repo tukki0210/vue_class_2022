@@ -1,7 +1,15 @@
 <template>
   <BookList v-bind:title="title" v-bind:url="ImageUrl" />
   <BookCard v-bind:bookData = "bookData" />
-  <BookCard v-for="book in books" v-bind:bookData = "book.Item" v-bind:key="book.Item.isbn"/>
+  <!-- コンポーネントへのv-forの場合、複製されたコンポーネントを区別する重複しないkey属性が必要 -->
+  <BookCard v-for="book in books"
+            v-bind:bookData = "book.Item" 
+            v-bind:key="book.Item.isbn" />
+
+  <!-- P.88 v-forから配列要素だけでなく、その配列の各キーやインデックス番号が取れる -->
+  <BookCard v-for="(book, key,index ) in books"
+            v-bind:bookData = "book.Item" 
+            v-bind:key="index" />
 </template>
 
 <script>
@@ -28,7 +36,7 @@ export default {
   // ライフサイクルフック（実行タイミングの指定）
   // 非同期処理を含む関数はmountedの中にに書く
   mounted: function () {
-    const RAKUTEN_API = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=JavaScript&booksGenreId=001&applicationId=1024837784734370415'
+    const RAKUTEN_API = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=programing&booksGenreId=001&applicationId=1024837784734370415'
     fetch(RAKUTEN_API)
       .then(response => response.json())
       .then(data => {
