@@ -1,18 +1,24 @@
 <template>
     <div class="container">
-        <img v-bind:src="bookData.mediumImageUrl" alt="">
+        <img v-bind:src="BasicInfo.hotelImageUrl" alt="" hight="250" width="400"> 
         <div>
-            <div>{{ bookData.title }}</div>
-            <div>{{ bookData.publisherName }}</div>
-            <div>{{ bookData.itemPrice }}</div>
+            <div>{{ BasicInfo.hotelName }}</div>
+            <div>{{ BasicInfo.hotelSpecial }}</div>
+            <div>{{ BasicInfo.access }}</div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'BookCard',
+    name: 'HotelCard',
     props: {
-        bookData: Object
+        hotelData: Object
+    },
+    data(){
+        return {
+            BasicInfo:this.hotelData[0].hotelBasicInfo,
+            RatingInfo:this.hotelData[1].hotelRatingInfo
+        }
     }
 }
 </script>
@@ -23,6 +29,6 @@ export default {
     border: solid 1px gray;
     margin: 0;
     padding: 5px;
-    width: 500px;
+    width: 1000px;
 }
 </style>

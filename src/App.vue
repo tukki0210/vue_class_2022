@@ -1,21 +1,21 @@
 <template>
-  <BookCard v-for="book in books"
+  <!-- <BookCard v-for="book in books"
             v-bind:bookData = "book.Item" 
-            v-bind:key="book.Item.isbn" />
-            
+            v-bind:key="book.Item.isbn" /> -->
+
   <HotelCard v-for="(hotel,key,index) in hotels" 
-              v-bind:hotel = "hotel.hotel"
+              v-bind:hotelData = "hotel.hotel"
               v-bind:key="index" />
 </template>
 
 <script>
-import BookCard from './components/BookCard.vue'
+// import BookCard from './components/BookCard.vue'
 import HotelCard from './components/HotelCard.vue'
 
 export default {
   name: 'App',
   components: {
-    BookCard,
+    // BookCard,
     HotelCard
   },
   data () {
